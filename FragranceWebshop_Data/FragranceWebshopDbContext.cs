@@ -5,28 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using FragranceWebshop_Entities.Entity_Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace FragranceWebshop_Data
 {
-    public class FragranceWebshopDbContext: DbContext
+    public class FragranceWebshopDbContext: IdentityDbContext
     {
         public DbSet<Perfum> perfums { get; set; }
         public DbSet<Purchase> purchases { get; set; }
 
-        public FragranceWebshopDbContext(DbContextOptions<FragranceWebshopDbContext> ctx): base(ctx)
+        public DbSet<AppUser> appUsers { get; set; }
+
+        public FragranceWebshopDbContext(DbContextOptions<FragranceWebshopDbContext> ctx) :base(ctx)
         {
-            Database.EnsureCreated();
+            
         }
 
-     
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Perfum>()
                 .HasMany(p => p.Purchases)
-                .WithOne(e => e.PurchasedPerfum)
-                .HasForeignKey(e => e.PerfumId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithMany(e => e.PurchasedPerfums);
 
             base.OnModelCreating(modelBuilder);
         }

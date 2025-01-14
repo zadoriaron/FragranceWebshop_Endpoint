@@ -15,7 +15,7 @@ namespace FragranceWebshop_Data
             this.ctx = ctx;
         }
 
-
+        //ide jönnek majd a repository metódusok amik a logic ad majd át 
 
 
     }
