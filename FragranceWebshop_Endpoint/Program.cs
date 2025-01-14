@@ -1,4 +1,5 @@
 using FragranceWebshop_Data;
+using FragranceWebshop_Logic.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace FragranceWebshop_Endpoint
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddTransient<DtoProvider>();
+
             builder.Services.AddIdentity<AppUser, IdentityRole>(
                    option =>
                    {
@@ -41,7 +44,7 @@ namespace FragranceWebshop_Endpoint
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = "fragrnacewebshop.com",
+                    ValidAudience = "fragrancewebshop.com",
                     ValidIssuer = "fragrancewebshop.com",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("NagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcs"))
                 };

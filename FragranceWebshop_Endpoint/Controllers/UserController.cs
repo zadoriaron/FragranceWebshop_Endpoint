@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using FragranceWebshop_Logic.Helpers;
 using System.Security.Claims;
 using System.Text;
 
@@ -17,11 +18,14 @@ namespace FragranceWebshop_Endpoint.Controllers
     {
         UserManager<AppUser> userManager;
         RoleManager<IdentityRole> roleManager;
+        DtoProvider dtoProvider;
 
-        public UserController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+
+        public UserController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, DtoProvider dtoProvider)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.dtoProvider = dtoProvider;
         }
 
 
@@ -36,7 +40,6 @@ namespace FragranceWebshop_Endpoint.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
         public IEnumerable<UserViewDto> GetUsers()
         {
             return userManager.Users.Select(t =>

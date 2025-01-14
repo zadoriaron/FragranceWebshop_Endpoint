@@ -3,12 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using FragranceWebshop_Data;
+using FragranceWebshop_Entities.Dtos;
+using Microsoft.AspNetCore.Identity;
 
 namespace FragranceWebshop_Logic.Helpers
 {
-    public class dtoProvider
+    public class DtoProvider
     {
+        public Mapper Mapper { get; }
 
+        public DtoProvider(UserManager<AppUser> userManager)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<AppUser, UserViewDto>()
+                .AfterMap((src,dest) =>
+                {
+                    dest.IsAdmin = userManager.IsInRoleAsync(src, "Admin").Result;
+                });
+
+            });
+
+
+            Mapper = new Mapper(config);
+        }
 
     }
 }
