@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FragranceWebshop_Entities.Dtos
+namespace FragranceWebshop_Entities.Dtos.UserDto
 {
     public class UserViewDto
     {

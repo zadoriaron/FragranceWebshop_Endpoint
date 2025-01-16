@@ -1,5 +1,4 @@
 ﻿using FragranceWebshop_Data;
-using FragranceWebshop_Entities.Dtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using FragranceWebshop_Logic.Helpers;
 using System.Security.Claims;
 using System.Text;
+using FragranceWebshop_Entities.Dtos.UserDto;
 
 namespace FragranceWebshop_Endpoint.Controllers
 {
@@ -37,6 +37,16 @@ namespace FragranceWebshop_Endpoint.Controllers
             if (user == null)
                 throw new ArgumentException("User not found");
             await userManager.AddToRoleAsync(user, "Admin");
+        }
+
+        [HttpGet("revokeadmin/{userid}")]
+        [Authorize(Roles = "Admin")]
+        public async Task RevokeAdmin(string userid)
+        {
+            var user = await userManager.FindByIdAsync(userid);
+            if (user == null)
+                throw new ArgumentException("User not found");
+            await userManager.RemoveFromRoleAsync(user, "Admin");
         }
 
         [HttpGet]

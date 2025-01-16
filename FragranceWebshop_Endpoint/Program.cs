@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using FragranceWebshop_Logic.Logic;
 using System.Text;
 
 namespace FragranceWebshop_Endpoint
@@ -15,7 +16,9 @@ namespace FragranceWebshop_Endpoint
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddTransient<PerfumRepository>();
             builder.Services.AddTransient<DtoProvider>();
+            builder.Services.AddTransient<PerfumLogic>();
 
             builder.Services.AddIdentity<AppUser, IdentityRole>(
                    option =>
