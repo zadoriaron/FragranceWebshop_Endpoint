@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using FragranceWebshop_Logic.Logic;
 using System.Text;
+using FragranceWebshop_Endpoint.Helpers;
 
 namespace FragranceWebshop_Endpoint
 {
@@ -95,6 +96,8 @@ namespace FragranceWebshop_Endpoint
 
 
             var app = builder.Build();
+
+            app.UseMiddleware<CustomUnauthorizedMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
