@@ -14,11 +14,14 @@ namespace FragranceWebshop_Entities.Entity_Models
 
         public virtual ICollection<Perfum>? PurchasedPerfums { get; set; }
 
-        public Purchase(string customerid)
+        public Purchase(string customerid, Perfum purchasedPerfum)
         {
             PurchaseId = Guid.NewGuid().ToString();
             CustomerId = customerid;
             PurchaseDate = DateTime.Now;
+            PurchasedPerfums = new List<Perfum>();
+            PurchasedPerfums.Add(purchasedPerfum);
+
         }
 
         public Purchase()

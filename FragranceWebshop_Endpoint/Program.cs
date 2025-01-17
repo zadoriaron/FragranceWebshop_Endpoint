@@ -19,6 +19,8 @@ namespace FragranceWebshop_Endpoint
             builder.Services.AddTransient<PerfumRepository>();
             builder.Services.AddTransient<DtoProvider>();
             builder.Services.AddTransient<PerfumLogic>();
+            builder.Services.AddTransient<PurchaseRepository>();
+            builder.Services.AddTransient<PurchaseLogic>();
 
             builder.Services.AddIdentity<AppUser, IdentityRole>(
                    option =>
